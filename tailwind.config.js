@@ -22,6 +22,8 @@ export default {
           warning: "#FBBD23",
 
           error: "#F87272",
+
+          orange: "#FF3811",
         },
       },
     ],
