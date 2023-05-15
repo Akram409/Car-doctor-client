@@ -6,14 +6,14 @@ const Service = () => {
 
   useEffect(() => {
     const loadData = async() => {
-      const res = await fetch('/public/services.json')
+      const res = await fetch('https://car-doctor-server-omega-seven.vercel.app/services')
       const data = await res.json()
       setServices(data)
     }
     loadData()
   },[])
 
-  console.log(services)
+  // console.log(services)
   return (
     <div className="mt-4">
       <div className="text-center space-y-2 mb-5">

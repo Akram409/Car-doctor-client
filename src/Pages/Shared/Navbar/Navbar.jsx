@@ -2,8 +2,20 @@ import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.svg";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
+import { useContext } from "react";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  // setup login and logout info
+  const handleLogout = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   return (
     <div>
       <div className="navbar bg-whites">
@@ -66,26 +78,66 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 gap-3">
             <li>
-              <Link to="/" className="font-bold">Home</Link>
+              <Link to="/" className="font-bold">
+                Home
+              </Link>
+            </li>
+            {user && (
+              <li>
+                <Link to="/booking" className="font-bold">
+                  MyBooking
+                </Link>
+              </li>
+            )}
+            <li>
+              <Link to="/" className="font-bold">
+                Services
+              </Link>
             </li>
             <li>
-              <Link to="/" className="font-bold">About</Link>
+              <Link to="/" className="font-bold">
+                Blog
+              </Link>
             </li>
             <li>
-              <Link to="/" className="font-bold">Services</Link>
+              <Link to="/" className="font-bold">
+                Contact
+              </Link>
             </li>
-            <li>
-              <Link to="/" className="font-bold">Blog</Link>
-            </li>
-            <li>
-              <Link to="/" className="font-bold">Contact</Link>
-            </li>
+            {user ? (
+              <li>
+                <Link to="/" className="font-bold" onClick={handleLogout}>
+                  LogOut
+                </Link>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login" className="font-bold">
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signup" className="font-bold">
+                    SignUp
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
         <div className="navbar-end gap-5">
-          <Link to="/"><HiOutlineShoppingBag size="1.5em"/></Link>
-          <Link to="/"><BiSearch size="1.5em"/></Link> 
-          <Link to="/"><button className="btn btn-outline btn-error font-bold">Appointment</button></Link>
+          <Link to="/">
+            <HiOutlineShoppingBag size="1.5em" />
+          </Link>
+          <Link to="/">
+            <BiSearch size="1.5em" />
+          </Link>
+          <Link to="/">
+            <button className="btn btn-outline btn-error font-bold">
+              Appointment
+            </button>
+          </Link>
         </div>
       </div>
     </div>
